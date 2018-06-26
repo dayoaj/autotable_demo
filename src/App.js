@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
@@ -38,6 +38,20 @@ const styles = theme => ({
     },
 
   },
+  file: {
+    borderRadius: 4,
+    border: '1px solid #c494de',
+    padding: '6px 4px 7px 6px ',
+    width: 'calc(100% - 24px)',
+    height: '1.95em',
+    fontFamily: [
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif'
+    ].join(',')
+  }
 });
 
 class App extends Component {
@@ -71,15 +85,33 @@ class App extends Component {
               >
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
-                  <form noValidate>
-                    <input type="file"/>
-                    
-                  </form>
+                    <Typography gutterBottom variant="title" component="h2" align="left">
+                      Upload List
+                    </Typography>
+                    <Divider />
+                    <form noValidate autoComplete="off">
+                      <TextField
+                        id="list-upload"
+                        type="file"
+                        margin="normal"
+                        InputProps={{
+                          disableUnderline: true,
+                          classes: {
+                            input: classes.file,
+                          },
+                        }}
+
+                      />  
+                    </form>
 
                   </Paper>
                 </Grid>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
+                  <Typography gutterBottom variant="title" component="h2" align="left">
+                      List Table
+                    </Typography>
+                    <Divider />
                     Are we live?
                   </Paper>
                 </Grid>
