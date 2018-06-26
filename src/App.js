@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { AppBar, Toolbar, Typography, IconButton, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import StaffList from './StaffList';
 
 
 
