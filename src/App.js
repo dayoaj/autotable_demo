@@ -59,6 +59,7 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
+
     return (
       <React.Fragment>
         <CssBaseline />
@@ -104,7 +105,6 @@ class App extends Component {
 
                       />  
                     </form>
-
                   </Paper>
                 </Grid>
                 <Grid item xs={12}>
@@ -114,6 +114,7 @@ class App extends Component {
                     </Typography>
                     <Divider />
                     Are we live?
+                    <StaffList/>
                   </Paper>
                 </Grid>
               </Grid>

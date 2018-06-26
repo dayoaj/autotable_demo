@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -31,7 +31,7 @@ const data = [
 class StaffList extends Component {
   render() {
     const { classes } = this.props;
-    
+
     return (
         <Paper className={classes.root}>
           <Table className={classes.table}>
@@ -68,4 +68,4 @@ class StaffList extends Component {
 
 
 
-export default withStyles(styles)(StafList);
+export default withStyles(styles)(StaffList);
