@@ -33,7 +33,7 @@ class StaffList extends Component {
     const { classes } = this.props;
 
     return (
-        <Paper className={classes.root}>
+        <Paper className={classes.root} elevation={0}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
