@@ -55,10 +55,52 @@ const styles = theme => ({
   }
 });
 
+let id = 0;
+function createData(names, email, phone ) {
+  id += 1;
+  return { id, names, email, phone };
+}
+
 class App extends Component {
+  state = {
+    data: [],
+  }
+  
+
+  handleCSVSubmit = (e) => {
+    const csvDirectory = document.querySelector('#list-upload');
+    e.preventDefault();
+    if (csvDirectory.files.length > 0) {
+      const file = csvDirectory.files[0];
+      if (file.type === 'application/vnd.ms-excel'){
+        const reader = new FileReader();
+        reader.onload = () => {
+          const resultArr = [];
+          reader.result.split('\r\n').forEach((row)=>{
+            const rowArr=[];
+            row.split(',').forEach((n)=>{
+              rowArr.push(n);
+            })
+            resultArr.push(rowArr);
+          });
+          
+          const arr = resultArr.map((m)=> {
+            return createData(...m);
+          })
+          
+          this.setState({
+            data: arr,
+          })  
+
+        }
+      }
+    }
+
+  }
 
   render() {
     const { classes } = this.props;
+    const { data } = this.state;
 
     return (
       <React.Fragment>
@@ -91,7 +133,7 @@ class App extends Component {
                       Upload List
                     </Typography>
                     <Divider />
-                    <form noValidate autoComplete="off">
+                    <form noValidate autoComplete="off" onSubmit={this.handleCSVSubmit}>
                       <TextField
                         id="list-upload"
                         type="file"
@@ -103,7 +145,8 @@ class App extends Component {
                           },
                         }}
 
-                      />  
+                      /> 
+                      <button type="submit" id="submitCSV">Upload</button> 
                     </form>
                   </Paper>
                 </Grid>
@@ -113,8 +156,7 @@ class App extends Component {
                       List Table
                     </Typography>
                     <Divider />
-                    Are we live?
-                    <StaffList/>
+                    <StaffList data={data}/>
                   </Paper>
                 </Grid>
               </Grid>
