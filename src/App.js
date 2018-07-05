@@ -84,18 +84,22 @@ class App extends Component {
             resultArr.push(rowArr);
           });
           
-          const arr = resultArr.map((m)=> {
+          const data = resultArr.map((m)=> {
+            
             return createData(...m);
           })
           
+          
           this.setState({
-            data: arr,
+            data,
           })  
 
         }
+        reader.readAsText(file);
       }
     }
 
+    
   }
 
   render() {

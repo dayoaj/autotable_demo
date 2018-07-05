@@ -35,7 +35,7 @@ class StaffList extends Component {
             <TableHead>
               <TableRow>
                 <TableCell>Names</TableCell>
-                <TableCell numeric>Email Address</TableCell>
+                <TableCell>Email Address</TableCell>
                 <TableCell numeric>Phone Number</TableCell>
               </TableRow>
             </TableHead>

@@ -10,7 +10,7 @@
 /build
 
 .vscode
-.eslintrc.json
+
 
 # misc
 .DS_Store
