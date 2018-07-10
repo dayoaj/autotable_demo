@@ -25,6 +25,9 @@ const styles = theme => ({
 // ];
 
 class StaffList extends Component {
+
+  state = {selected: [],}
+
   render() {
     const { classes, data } = this.props;
 
@@ -42,8 +45,14 @@ class StaffList extends Component {
             <TableBody>
               {data.map(n => {
                 return (
-                  <TableRow key={n.id}>
-                    <TableCell component="th" scope="row">
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    key={n.id}>
+                    <TableCell component="th" scope="row" padding="none"> 
+                      {n.names}
+                    </TableCell>
+                    <TableCell component="th" scope="row" padding="none"> 
                       {n.names}
                     </TableCell>
                     <TableCell >{n.email}</TableCell>
