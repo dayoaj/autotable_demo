@@ -159,7 +159,7 @@ class App extends Component {
                   <Typography gutterBottom variant="title" component="h2" align="left">
                       List Table
                     </Typography>
-                    <Divider />
+                    {/* <Divider /> */}
                     <StaffList data={data}/>
                   </Paper>
                 </Grid>
