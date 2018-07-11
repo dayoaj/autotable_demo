@@ -56,7 +56,7 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(names, email, phone ) {
+function createData(names, email, phone) {
   id += 1;
   return { id, names, email, phone };
 }
@@ -65,41 +65,42 @@ class App extends Component {
   state = {
     data: [],
   }
-  
+
 
   handleCSVSubmit = (e) => {
     const csvDirectory = document.querySelector('#list-upload');
     e.preventDefault();
     if (csvDirectory.files.length > 0) {
       const file = csvDirectory.files[0];
-      if (file.type === 'application/vnd.ms-excel'){
+      if (file.type === 'application/vnd.ms-excel') {
         const reader = new FileReader();
         reader.onload = () => {
           const resultArr = [];
-          reader.result.split('\r\n').forEach((row)=>{
-            const rowArr=[];
-            row.split(',').forEach((n)=>{
-              rowArr.push(n);
-            })
-            resultArr.push(rowArr);
+          reader.result.split('\r\n').forEach((row) => { //Splits it to single rows
+            if (row) {
+              const rowArr = [];
+              row.split(',').forEach((n) => { //splits it to individual cells
+                rowArr.push(n);
+              })
+              resultArr.push(rowArr);
+            }
           });
-          
-          const data = resultArr.map((m)=> {
-            
+
+          const data = resultArr.map((m) => {
+
             return createData(...m);
           })
-          
-          
+
           this.setState({
             data,
-          })  
+          })
 
         }
         reader.readAsText(file);
       }
     }
 
-    
+
   }
 
   render() {
@@ -124,12 +125,12 @@ class App extends Component {
               </AppBar>
             </Grid>
             <Grid item xs={12} className={classes.shift} >
-              <Grid 
-              container 
-              spacing={16}
-              alignItems='center'
-              direction='column'
-              justify='center'
+              <Grid
+                container
+                spacing={16}
+                alignItems='center'
+                direction='column'
+                justify='center'
               >
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
@@ -149,18 +150,18 @@ class App extends Component {
                           },
                         }}
 
-                      /> 
-                      <button type="submit" id="submitCSV">Upload</button> 
+                      />
+                      <button type="submit" id="submitCSV">Upload</button>
                     </form>
                   </Paper>
                 </Grid>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
-                  <Typography gutterBottom variant="title" component="h2" align="left">
+                    <Typography gutterBottom variant="title" component="h2" align="left">
                       List Table
                     </Typography>
                     {/* <Divider /> */}
-                    <StaffList data={data}/>
+                    <StaffList data={data} />
                   </Paper>
                 </Grid>
               </Grid>

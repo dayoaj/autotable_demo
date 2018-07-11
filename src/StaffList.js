@@ -62,7 +62,6 @@ class StaffList extends Component {
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
-                {/* <Checkbox selected={this.isSelected} /> */}
               </TableCell>
               <TableCell>Names</TableCell>
               <TableCell>Email Address</TableCell>
