@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Table, TableBody, TableCell, TableHead, TableRow, Checkbox } from '@material-ui/core';
+import EnhancedToolbar from './EnhancedToolbar';
+
 
 const styles = theme => ({
   root: {
@@ -14,15 +17,6 @@ const styles = theme => ({
   },
 });
 
-
-
-// const data = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
 
 class StaffList extends Component {
 
@@ -58,6 +52,7 @@ class StaffList extends Component {
 
     return (
       <Paper className={classes.root} elevation={0}>
+      <EnhancedToolbar numSelected={this.state.selected.length} />
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -99,7 +94,9 @@ class StaffList extends Component {
   }
 }
 
-
-
+StaffList.propTypes = {
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object,
+};
 
 export default withStyles(styles)(StaffList);
