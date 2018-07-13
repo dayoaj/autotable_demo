@@ -158,10 +158,6 @@ class App extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
-                    <Typography gutterBottom variant="title" component="h2" align="left">
-                      List Table
-                    </Typography>
-                    {/* <Divider /> */}
                     <StaffList data={data} />
                   </Paper>
                 </Grid>
