@@ -20,17 +20,20 @@ const styles = theme => ({
 
 class StaffList extends Component {
 
-  state = { selected: [], }
+  state = { selected: [], clicked: -1, }
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isClicked = id => this.state.clicked === id;
 
-  handleClick = (event, id) => {
-    const { selected } = this.state;
+  handleSelect = (event, id) => {
+    const { selected, clicked } = this.state;
+    
     const selectedIndex = selected.indexOf(id);
 
     let newSelected = [];
-
-    if (selectedIndex === -1) {
+    if (!selected.length && clicked !== -1){
+      newSelected = newSelected.concat(selected, id, clicked);
+    }else if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
@@ -45,6 +48,30 @@ class StaffList extends Component {
 
     this.setState({ selected: newSelected });
     
+
+    event.stopPropagation();
+
+  }
+
+  handleClick = (event, id) => {
+    const { selected, clicked } = this.state;
+
+    if(selected){
+      this.setState({ selected: [] });
+    }
+
+    let newClicked = id;
+
+    if(clicked === -1){
+      newClicked = id;
+    } else if (clicked === id){
+      newClicked = -1
+    } else {
+      newClicked = id;
+    }
+
+    this.setState({clicked: newClicked});
+    
   }
 
   render() {
@@ -52,7 +79,7 @@ class StaffList extends Component {
 
     return (
       <Paper className={classes.root} elevation={0}>
-      <EnhancedToolbar numSelected={this.state.selected.length} />
+        <EnhancedToolbar numSelected={this.state.selected.length} isClicked={this.state.clicked !== -1 } />
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -66,18 +93,21 @@ class StaffList extends Component {
           <TableBody>
             {data.map(n => {
               const isSelected = this.isSelected(n.id);
+              const isClicked = this.isClicked(n.id);
               return (
                 <TableRow
                   hover
                   onClick={event => this.handleClick(event, n.id)}
                   role="checkbox"
-                  aria-checked={isSelected}
+                  aria-checked={isClicked || isSelected}
                   tabIndex={-1}
                   key={n.id}
-                  selected={isSelected}
+                  selected={isClicked || isSelected}
                 >
                   <TableCell padding="checkbox">
-                    <Checkbox selected={isSelected} />
+                    <Checkbox checked={isClicked || isSelected}
+                      onClick={event => this.handleSelect(event, n.id)}
+                    />
                   </TableCell>
                   <TableCell component="th" scope="row" padding="none">
                     {n.names}
@@ -96,7 +126,7 @@ class StaffList extends Component {
 
 StaffList.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.object,
+  data: PropTypes.array,
 };
 
 export default withStyles(styles)(StaffList);

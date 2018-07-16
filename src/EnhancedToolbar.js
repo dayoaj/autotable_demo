@@ -3,9 +3,10 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Toolbar, Typography, IconButton, Tooltip } from '@material-ui/core';
-import { lighten }  from '@material-ui/core/styles/colorManipulator';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 const toolbarStyles = theme => ({
@@ -36,40 +37,55 @@ const toolbarStyles = theme => ({
 class EnhancedToolbar extends Component {
 
     render() {
-        const { numSelected, classes } = this.props;
+        const { numSelected, classes, isClicked } = this.props;
 
         return (
             <Toolbar
                 className={classNames(classes.root, {
-                    [classes.highlight]: numSelected > 0,
+                    [classes.highlight]: isClicked || numSelected > 0,
                 })}
             >
                 <div className={classes.title}>
-                    {numSelected > 0 ? (
+                    {isClicked ? "" : (numSelected > 0 ? (
                         <Typography color="inherit" variant="subheading">
                             {numSelected} selected
-          </Typography>
+                        </Typography>
                     ) : (
                             <Typography variant="title" id="tableTitle">
                                 Name List
-          </Typography>
-                        )}
+                            </Typography>
+                        ))}
                 </div>
                 <div className={classes.spacer} />
                 <div className={classes.actions}>
-                    {numSelected > 0 ? (
-                        <Tooltip title="Delete">
-                            <IconButton aria-label="Delete">
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    ) : (
-                            <Tooltip title="Filter list">
-                                <IconButton aria-label="Filter list">
-                                    <FilterListIcon />
+                    {isClicked ? (
+                        <div>
+                            <Tooltip title="Edit">
+                                <IconButton aria-label="Edit">
+                                    <EditIcon />
                                 </IconButton>
                             </Tooltip>
-                        )}
+
+                            <Tooltip title="Delete">
+                                <IconButton aria-label="Delete">
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                    ) :
+                        (numSelected > 0 ? (
+                            <Tooltip title="Delete">
+                                <IconButton aria-label="Delete">
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        ) : (
+                                <Tooltip title="Filter list">
+                                    <IconButton aria-label="Filter list">
+                                        <FilterListIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            ))}
                 </div>
             </Toolbar>
         );
@@ -79,6 +95,6 @@ class EnhancedToolbar extends Component {
 EnhancedToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
-  };
-  
-  export default withStyles(toolbarStyles)(EnhancedToolbar);
+};
+
+export default withStyles(toolbarStyles)(EnhancedToolbar);
