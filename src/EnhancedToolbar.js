@@ -28,6 +28,7 @@ const toolbarStyles = theme => ({
     },
     actions: {
         color: theme.palette.text.secondary,
+        width: 112,
     },
     title: {
         flex: '0 0 auto',
@@ -44,8 +45,9 @@ class EnhancedToolbar extends Component {
                 className={classNames(classes.root, {
                     [classes.highlight]: isClicked || numSelected > 0,
                 })}
+           
             >
-                <div className={classes.title}>
+                <div className={classes.title} >
                     {isClicked ? "" : (numSelected > 0 ? (
                         <Typography color="inherit" variant="subheading">
                             {numSelected} selected
@@ -57,7 +59,7 @@ class EnhancedToolbar extends Component {
                         ))}
                 </div>
                 <div className={classes.spacer} />
-                <div className={classes.actions}>
+                <div className={classes.actions} >
                     {isClicked ? (
                         <div>
                             <Tooltip title="Edit">
@@ -95,6 +97,7 @@ class EnhancedToolbar extends Component {
 EnhancedToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
+    isClicked: PropTypes.bool.isRequired,
 };
 
 export default withStyles(toolbarStyles)(EnhancedToolbar);

@@ -5,9 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { AppBar, Toolbar, Typography, IconButton, Divider } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Divider, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import StaffList from './StaffList';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 
 
@@ -38,7 +39,6 @@ const styles = theme => ({
     [theme.breakpoints.up('lg')]: {
       minWidth: 900,
     },
-
   },
   file: {
     borderRadius: 4,
@@ -53,7 +53,13 @@ const styles = theme => ({
       'Arial',
       'sans-serif'
     ].join(',')
-  }
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
 });
 
 let id = 0;
@@ -150,9 +156,11 @@ class App extends Component {
                             input: classes.file,
                           },
                         }}
-
                       />
-                      <button type="submit" id="submitCSV">Upload</button>
+                      <Button variant="contained" color="default" className={classes.button} type="submit" id="submitCSV">
+                        Upload
+                        <CloudUploadIcon className={classes.rightIcon} />
+                      </Button>
                     </form>
                   </Paper>
                 </Grid>

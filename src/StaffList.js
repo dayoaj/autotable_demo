@@ -33,6 +33,7 @@ class StaffList extends Component {
     let newSelected = [];
     if (!selected.length && clicked !== -1){
       newSelected = newSelected.concat(selected, id, clicked);
+      this.setState({ clicked: -1 });
     }else if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
@@ -76,6 +77,10 @@ class StaffList extends Component {
 
   render() {
     const { classes, data } = this.props;
+    const { selected, clicked } = this.state;
+    console.log("selected",selected);
+    console.log("clicked",clicked);
+
 
     return (
       <Paper className={classes.root} elevation={0}>
