@@ -5,8 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { AppBar, Toolbar, Typography, IconButton, Divider, Button } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Divider, Button } from '@material-ui/core';
 import StaffList from './StaffList';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
@@ -19,10 +18,6 @@ const styles = theme => ({
   shift: {
     // marginTop: 20,
     padding: 20,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -122,9 +117,7 @@ class App extends Component {
             <Grid item xs={12}>
               <AppBar position='sticky'>
                 <Toolbar>
-                  <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                    <MenuIcon />
-                  </IconButton>
+                  
                   <Typography variant="title" color="inherit" className={classes.flex}>
                     List Demo
                   </Typography>
