@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import { AppBar, Toolbar, Typography, Divider, Button } from '@material-ui/core';
 import StaffList from './StaffList';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+import SideNavList from './SideNavList';
 
 
 const styles = theme => ({
@@ -66,6 +66,7 @@ function createData(names, email, phone) {
 class App extends Component {
   state = {
     data: [],
+    menu: [ "Staff List", "Staff Status", "Schedules"],
   }
 
 
@@ -107,7 +108,7 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
-    const { data } = this.state;
+    const { data, menu } = this.state;
 
     return (
       <React.Fragment>
@@ -117,7 +118,7 @@ class App extends Component {
             <Grid item xs={12}>
               <AppBar position='sticky'>
                 <Toolbar>
-                  
+                  <SideNavList  menu={menu} />
                   <Typography variant="title" color="inherit" className={classes.flex}>
                     List Demo
                   </Typography>

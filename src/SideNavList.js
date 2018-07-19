@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IconButton, Divider, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList } from '@material-ui/core';
+import { IconButton, ClickAwayListener, Grow, Paper, MenuItem, MenuList } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import Popper from '@material-ui/core/Popper';
 
 
 const styles = theme => ({
@@ -35,7 +36,7 @@ class SideNavList extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, menu } = this.props;
         const { open } = this.state;
 
         return (
@@ -52,8 +53,8 @@ class SideNavList extends React.Component {
                     aria-label="Menu">
                     <MenuIcon />
                 </IconButton>
-                <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
-                    {({ TransitionProps, placement }) => (
+                <Popper open={open} anchorEl={this.anchorEl} transition disablePortal >
+                    {({ TransitionProps }) => (
                         <Grow
                             {...TransitionProps}
                             id="menu-list-grow"
@@ -61,11 +62,16 @@ class SideNavList extends React.Component {
                         >
                             <Paper>
                                 <ClickAwayListener onClickAway={this.handleClose}>
-                                    <MenuList>
-                                        <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>Logout</MenuItem>
-                                    </MenuList>
+                                    {
+                                        menu.map(n => {
+                                            return (
+                                                <MenuList>
+                                                    <MenuItem onClick={this.handleClose}>{n}</MenuItem>
+                                                </MenuList>
+                                            );
+                                        })
+
+                                    }
                                 </ClickAwayListener>
                             </Paper>
                         </Grow>
@@ -80,6 +86,7 @@ class SideNavList extends React.Component {
 
 SideNavList.propTypes = {
     classes: PropTypes.object.isRequired,
+    menu: PropTypes.array,
 };
 
 export default withStyles(styles)(SideNavList);
