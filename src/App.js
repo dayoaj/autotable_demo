@@ -5,10 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { AppBar, Toolbar, Typography, Divider, Button } from '@material-ui/core';
+import { Typography, Divider, Button } from '@material-ui/core';
 import StaffList from './StaffList';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import SideNavList from './SideNavList';
+import ResponsiveNavBar from './ResponsiveNavBar';
 
 
 const styles = theme => ({
@@ -116,14 +116,7 @@ class App extends Component {
         <div className={classes.root}>
           <Grid container >
             <Grid item xs={12}>
-              <AppBar position='sticky'>
-                <Toolbar>
-                  <SideNavList  menu={menu} />
-                  <Typography variant="title" color="inherit" className={classes.flex}>
-                    List Demo
-                  </Typography>
-                </Toolbar>
-              </AppBar>
+              <ResponsiveNavBar menu={menu} />
             </Grid>
             <Grid item xs={12} className={classes.shift} >
               <Grid
