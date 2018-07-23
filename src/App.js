@@ -12,12 +12,10 @@ import ResponsiveNavBar from './ResponsiveNavBar';
 
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
   shift: {
     // marginTop: 20,
-    padding: 20,
+    padding: theme.spacing.unit * 3,
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -66,7 +64,6 @@ function createData(names, email, phone) {
 class App extends Component {
   state = {
     data: [],
-    menu: [ "Staff List", "Staff Status", "Schedules"],
   }
 
 
@@ -90,7 +87,6 @@ class App extends Component {
           });
 
           const data = resultArr.map((m) => {
-
             return createData(...m);
           })
 
@@ -108,23 +104,21 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
-    const { data, menu } = this.state;
+    const { data } = this.state;
 
     return (
       <React.Fragment>
         <CssBaseline />
         <div className={classes.root}>
-          <Grid container >
-            <Grid item xs={12}>
-              <ResponsiveNavBar menu={menu} />
-            </Grid>
-            <Grid item xs={12} className={classes.shift} >
+            
+              <ResponsiveNavBar />
               <Grid
                 container
                 spacing={16}
                 alignItems='center'
                 direction='column'
                 justify='center'
+                className={classes.shift}
               >
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
@@ -157,8 +151,6 @@ class App extends Component {
                   </Paper>
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
         </div>
       </React.Fragment>
     );

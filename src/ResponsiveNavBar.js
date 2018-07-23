@@ -1,32 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar, Divider,  Drawer, Hidden, IconButton, List, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Divider, Drawer, Hidden, IconButton, List, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import StaffListIcon from '@material-ui/icons/People';
+import StaffStatusIcon from '@material-ui/icons/Poll';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        height: 430,
+        // height: 430,
         zIndex: 1,
         overflow: 'hidden',
         position: 'relative',
         display: 'flex',
-        width: '100%'
+        width: '100%',
     },
-    appbar: {
+    appBar: {
         position: 'sticky',
         marginLeft: drawerWidth,
         [theme.breakpoints.up('md')]: {
-            width: `calc(100% - ${drawerWidth}px`,
+            width: `calc(100% - ${drawerWidth}px)`,
         },
     },
     navIconHide: {
@@ -41,11 +42,6 @@ const styles = theme => ({
             position: 'relative',
         },
     },
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing.unit * 3,
-    },
 });
 
 class ResponsiveNavBar extends React.Component {
@@ -58,7 +54,7 @@ class ResponsiveNavBar extends React.Component {
     };
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
 
         const drawer = (
             <div>
@@ -67,15 +63,21 @@ class ResponsiveNavBar extends React.Component {
                 <List component="nav">
                     <ListItem button>
                         <ListItemIcon>
-                            <InboxIcon />
+                            <StaffListIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Inbox" />
+                        <ListItemText primary="Staff List" />
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon>
-                            <DraftsIcon />
+                            <StaffStatusIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Drafts" />
+                        <ListItemText primary="Staff Status" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <ScheduleIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Schedule" />
                     </ListItem>
                 </List>
             </div>
@@ -83,64 +85,53 @@ class ResponsiveNavBar extends React.Component {
 
         return (
             <div className={classes.root}>
-            <AppBar className={classes.appBar}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="Open drawer"
-                        onClick={this.handleDrawerToggle}
-                        className={classes.navIconHide}
+                <AppBar className={classes.appBar}>
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="Open drawer"
+                            onClick={this.handleDrawerToggle}
+                            className={classes.navIconHide}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="title" color="inherit" className={classes.flex}>
+                            List Demo
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Hidden mdUp>
+                    <Drawer
+                        variant="temporary"
+                        anchor="left"
+                        open={this.state.mobileOpen}
+                        onClose={this.handleDrawerToggle}
+                        className={classes.drawerWidth}
+                        ModalProps={{
+                            keepMounted: true,
+                        }}
                     >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="title" color="inherit" className={classes.flex}>
-                        List Demo
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
-        </main>
+                        {drawer}
+                    </Drawer>
+                </Hidden>
+                <Hidden smDown implementation="css">
+                    <Drawer
+                        variant="permanent"
+                        open
+                        
+                        className={classes.drawPaper}
+                    >
+                        {drawer}
+                    </Drawer>
+                </Hidden>
             </div>
         );
     }
 }
 
 
-
-
-
 ResponsiveNavBar.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveNavBar);
+export default withStyles(styles)(ResponsiveNavBar);

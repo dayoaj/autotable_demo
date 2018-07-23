@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Toolbar, Typography, IconButton, Tooltip } from '@material-ui/core';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import AddStaffIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 
 
@@ -82,9 +82,9 @@ class EnhancedToolbar extends Component {
                                 </IconButton>
                             </Tooltip>
                         ) : (
-                                <Tooltip title="Filter list">
-                                    <IconButton aria-label="Filter list">
-                                        <FilterListIcon />
+                                <Tooltip title="Add New Staff">
+                                    <IconButton aria-label="Add new Staff">
+                                        <AddStaffIcon />
                                     </IconButton>
                                 </Tooltip>
                             ))}
