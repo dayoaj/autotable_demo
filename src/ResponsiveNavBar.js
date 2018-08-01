@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { NavLink, Link } from 'react-router-dom';
 import { AppBar, Divider, Drawer, Hidden, IconButton, List, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import StaffListIcon from '@material-ui/icons/People';
@@ -8,10 +9,9 @@ import StaffStatusIcon from '@material-ui/icons/Poll';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
 
-const drawerWidth = 200;
+const drawerWidth = 171;
 
 const styles = theme => ({
     root: {
@@ -23,12 +23,21 @@ const styles = theme => ({
         display: 'flex',
         width: '100%',
     },
+    activeNav: {
+        color: 'red',
+    },
+    flex: {
+        textDecoration: 'none',
+    },
     appBar: {
         position: 'sticky',
         marginLeft: drawerWidth,
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${drawerWidth}px)`,
         },
+    },
+    'navbar:visited': {
+        textDecoration: 'none',
     },
     navIconHide: {
         [theme.breakpoints.up('md')]: {
@@ -60,25 +69,43 @@ class ResponsiveNavBar extends React.Component {
             <div>
                 <div className={classes.toolbar} />
                 <Divider />
-                <List component="nav">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <StaffListIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Staff List" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <StaffStatusIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Staff Status" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ScheduleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Schedule" />
-                    </ListItem>
+                <List component="nav"  >
+                    <NavLink to='/stafflist' activeStyle={{
+                                                fontWeight: 'bold',
+                                                color: '#95df94',
+                                                textDecoration: 'none',
+                                            }}   className={classes.navbar} >
+                        <ListItem button>
+                            <ListItemIcon>
+                                <StaffListIcon />
+                            </ListItemIcon>
+                            Staff List
+                        </ListItem>
+                    </NavLink>
+                    <NavLink to='/staffstatus' activeStyle={{
+                                                fontWeight: 'bold',
+                                                color: '#95df94',
+                                                textDecoration: 'none',
+                                            }}>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <StaffStatusIcon />
+                            </ListItemIcon>
+                            Staff Status
+                        </ListItem>
+                    </NavLink>
+                    <NavLink to='/schedule' activeStyle={{
+                                                fontWeight: 'bold',
+                                                color: '#95df94',
+                                                textDecoration: 'none',
+                                            }}>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ScheduleIcon />
+                            </ListItemIcon>
+                            Schedule
+                        </ListItem>
+                    </NavLink>
                 </List>
             </div>
         );
@@ -95,7 +122,7 @@ class ResponsiveNavBar extends React.Component {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="title" color="inherit" className={classes.flex}>
+                        <Typography variant="title" color="inherit" className={classes.flex} component={Link} to="/">
                             List Demo
                         </Typography>
                     </Toolbar>
@@ -118,7 +145,6 @@ class ResponsiveNavBar extends React.Component {
                     <Drawer
                         variant="permanent"
                         open
-                        
                         className={classes.drawPaper}
                     >
                         {drawer}
