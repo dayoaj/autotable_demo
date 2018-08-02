@@ -35,10 +35,22 @@ const toolbarStyles = theme => ({
     },
 });
 
+
+
 class EnhancedToolbar extends Component {
+    
+    state = {
+        openDialog: false,
+    }
+
+    handleClickAddNewUser = () => {
+        this.setState({ openDialog: true });
+      }; 
 
     render() {
         const { numSelected, classes, isClicked } = this.props;
+    //const {  openDialog } = this.state;
+
 
         return (
             <Toolbar
@@ -83,7 +95,7 @@ class EnhancedToolbar extends Component {
                             </Tooltip>
                         ) : (
                                 <Tooltip title="Add New Staff">
-                                    <IconButton aria-label="Add new Staff">
+                                    <IconButton aria-label="Add new Staff" onClick={this.handleClickAddNewUser}>
                                         <AddStaffIcon />
                                     </IconButton>
                                 </Tooltip>

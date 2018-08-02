@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Link } from 'react-router-dom';
-import { AppBar, Divider, Drawer, Hidden, IconButton, List, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Divider, Drawer, Hidden, IconButton, List, Menu, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import StaffListIcon from '@material-ui/icons/People';
 import StaffStatusIcon from '@material-ui/icons/Poll';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
-const drawerWidth = 171;
+const drawerWidth = 170;
+const customWidth = {
+    width: '2em',
+}
 
 const styles = theme => ({
     root: {
@@ -23,21 +28,16 @@ const styles = theme => ({
         display: 'flex',
         width: '100%',
     },
-    activeNav: {
-        color: 'red',
-    },
     flex: {
         textDecoration: 'none',
+        flexGrow: 1,
     },
     appBar: {
-        position: 'sticky',
+        position: 'relative',
         marginLeft: drawerWidth,
         [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${drawerWidth}px)`,
         },
-    },
-    'navbar:visited': {
-        textDecoration: 'none',
     },
     navIconHide: {
         [theme.breakpoints.up('md')]: {
@@ -51,12 +51,24 @@ const styles = theme => ({
             position: 'relative',
         },
     },
+    'navbar:visited': {
+        textDecoration: 'none',
+    },
 });
 
 class ResponsiveNavBar extends React.Component {
     state = {
         mobileOpen: false,
+        anchorEl: null,
     };
+
+    handleMenu = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null });
+    }
 
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
@@ -64,17 +76,19 @@ class ResponsiveNavBar extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const { anchorEl } = this.state;
+        const open = Boolean(anchorEl);
 
         const drawer = (
             <div>
                 <div className={classes.toolbar} />
                 <Divider />
-                <List component="nav"  >
+                <List component="nav">
                     <NavLink to='/stafflist' activeStyle={{
-                                                fontWeight: 'bold',
-                                                color: '#95df94',
-                                                textDecoration: 'none',
-                                            }}   className={classes.navbar} >
+                        fontWeight: 'bold',
+                        color: '#95df94',
+                        textDecoration: 'none',
+                    }} className={classes.flex}>
                         <ListItem button>
                             <ListItemIcon>
                                 <StaffListIcon />
@@ -83,10 +97,10 @@ class ResponsiveNavBar extends React.Component {
                         </ListItem>
                     </NavLink>
                     <NavLink to='/staffstatus' activeStyle={{
-                                                fontWeight: 'bold',
-                                                color: '#95df94',
-                                                textDecoration: 'none',
-                                            }}>
+                        fontWeight: 'bold',
+                        color: '#95df94',
+                        textDecoration: 'none',
+                    }} className={classes.flex}>
                         <ListItem button>
                             <ListItemIcon>
                                 <StaffStatusIcon />
@@ -95,10 +109,10 @@ class ResponsiveNavBar extends React.Component {
                         </ListItem>
                     </NavLink>
                     <NavLink to='/schedule' activeStyle={{
-                                                fontWeight: 'bold',
-                                                color: '#95df94',
-                                                textDecoration: 'none',
-                                            }}>
+                        fontWeight: 'bold',
+                        color: '#95df94',
+                        textDecoration: 'none',
+                    }} className={classes.flex}>
                         <ListItem button>
                             <ListItemIcon>
                                 <ScheduleIcon />
@@ -125,6 +139,33 @@ class ResponsiveNavBar extends React.Component {
                         <Typography variant="title" color="inherit" className={classes.flex} component={Link} to="/">
                             List Demo
                         </Typography>
+                        <div>
+                            <IconButton
+                                aria-owns={open ? 'menu-appbar' : null}
+                                aria-haspopup="true"
+                                onClick={this.handleMenu}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open}
+                                onClose={this.handleMenuClose}
+                            >
+                                <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+                                <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+                            </Menu>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <Hidden mdUp>
@@ -137,6 +178,7 @@ class ResponsiveNavBar extends React.Component {
                         ModalProps={{
                             keepMounted: true,
                         }}
+                        style={customWidth}
                     >
                         {drawer}
                     </Drawer>
@@ -145,7 +187,7 @@ class ResponsiveNavBar extends React.Component {
                     <Drawer
                         variant="permanent"
                         open
-                        className={classes.drawPaper}
+                        className={classes.drawerPaper}
                     >
                         {drawer}
                     </Drawer>

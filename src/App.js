@@ -6,7 +6,9 @@ import Body from './Body';
 import ResponsiveNavBar from './ResponsiveNavBar';
 
 const styles = theme => ({
-  
+  root:{
+    position: "relative",
+  }
 });
 
 
