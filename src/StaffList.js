@@ -76,10 +76,8 @@ class StaffList extends Component {
   }
 
   render() {
-    const { classes, data } = this.props;
-    const { selected, clicked } = this.state;
-    console.log("selected",selected);
-    console.log("clicked",clicked);
+    const { classes } = this.props;
+    const data = this.props.route.data;
 
 
     return (

@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Typography, Divider, Button } from '@material-ui/core';
-import StaffList from './StaffList';
+// import StaffList from './StaffList';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const styles = theme => ({
@@ -49,17 +49,17 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(names, email, phone) {
+function createData(names, email, phone){
     id += 1;
     return { id, names, email, phone };
 }
 
 class StaffListUpload extends Component {
-
+    
     state = {
         data: [],
     }
-
+    
     handleCSVSubmit = (e) => {
         const csvDirectory = document.querySelector('#list-upload');
         e.preventDefault();
@@ -82,26 +82,23 @@ class StaffListUpload extends Component {
                     const data = resultArr.map((m) => {
                         return createData(...m);
                     })
-
+                    
                     this.setState({
                         data,
                     })
-
+                    
+                    this.props.updateData(this.state.data);
                 }
                 reader.readAsText(file);
             }
         }
-
-
     }
-
-   
+  
     render() {
         const { classes } = this.props;
-        const { data } = this.state;
+        // const { data } = this.state;
 
         return (
-
             <Grid
                 container
                 spacing={16}
@@ -135,11 +132,11 @@ class StaffListUpload extends Component {
                         </form>
                     </Paper>
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <StaffList data={data} />
                     </Paper>
-                </Grid>
+                </Grid> */}
             </Grid>
         );
 
