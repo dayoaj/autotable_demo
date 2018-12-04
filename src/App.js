@@ -19,7 +19,6 @@ const styles = theme => ({
   // length:{
   //   height: '100%',
   // },
-  
 });
 
 
@@ -28,6 +27,8 @@ class App extends Component {
   state = {
     mobOpen: false,
     data: [],
+    isLoading: false,
+    error: null,
   };
 
   updateData = (data) => {
@@ -39,6 +40,21 @@ class App extends Component {
   toggleOpenDrawer = (mobOpen) => {
       this.setState(state => ({ mobOpen: !state.mobOpen }));
   };
+
+  componentDidMount() {
+    this.setState({ isLoading: true });
+
+    fetch('http://127.0.0.1:8090/api/users')
+      .then(response =>{
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong...');
+        }
+      })
+      .then(data => this.setState({data: data.rows, isLoading: false }))
+      .catch(error => this.setState({ error, isLoading: false}));
+  }
     
   render() {
     const { classes } = this.props;

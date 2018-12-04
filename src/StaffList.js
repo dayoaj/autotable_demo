@@ -76,8 +76,8 @@ class StaffList extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const data = this.props.route.data;
+    const { classes, data } = this.props;
+    // const data = this.props.data;
 
 
     return (
@@ -89,8 +89,9 @@ class StaffList extends Component {
               <TableCell padding="checkbox">
               </TableCell>
               <TableCell>Names</TableCell>
-              <TableCell>Email Address</TableCell>
               <TableCell numeric>Phone Number</TableCell>
+              <TableCell >Portfolio</TableCell>
+              <TableCell >Department</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -113,10 +114,12 @@ class StaffList extends Component {
                     />
                   </TableCell>
                   <TableCell component="th" scope="row" padding="none">
-                    {n.names}
+                    {n.FirstName}
+                    {n.LastName}
                   </TableCell>
-                  <TableCell >{n.email}</TableCell>
-                  <TableCell numeric>{n.phone}</TableCell>
+                  <TableCell numeric>{n.PhoneNumber}</TableCell>
+                  <TableCell>{n.Position}</TableCell>
+                  <TableCell>{n.Department}</TableCell>
                 </TableRow>
               );
             })}
