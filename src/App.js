@@ -58,13 +58,21 @@ class App extends Component {
     
   render() {
     const { classes } = this.props;
+    const { data, error, isLoading, mobOpen} = this.state; 
+    
+    if(error) {
+      return <p>{error.message} from me</p>;
+    }
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
 
     return (
       <React.Fragment>
         <div className={classes.root}>
           <CssBaseline />
-          <ResponsiveNavBar mobOpen={this.state.mobOpen}  toggleOpenDrawer={this.toggleOpenDrawer} className={classes.root}/>
-          <Body toggleOpenDrawer={this.toggleOpenDrawer} data={this.state.data}/>   
+          <ResponsiveNavBar mobOpen={mobOpen}  toggleOpenDrawer={this.toggleOpenDrawer} className={classes.root}/>
+          <Body toggleOpenDrawer={this.toggleOpenDrawer} data={data}/>   
         </div>
       </React.Fragment>
     );
