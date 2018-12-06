@@ -8,6 +8,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddStaffIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 const toolbarStyles = theme => ({
     root: {
@@ -28,7 +36,7 @@ const toolbarStyles = theme => ({
     },
     actions: {
         color: theme.palette.text.secondary,
-        width: 112,
+        width: 120,
     },
     title: {
         flex: '0 0 auto',
@@ -47,12 +55,18 @@ class EnhancedToolbar extends Component {
         this.setState({ openDialog: true });
       }; 
 
+    handleClose = () => {
+        this.setState({ openDialog: false });
+    }; 
+
+
     render() {
         const { numSelected, classes, isClicked } = this.props;
     //const {  openDialog } = this.state;
 
 
         return (
+            <div>
             <Toolbar
                 className={classNames(classes.root, {
                     [classes.highlight]: isClicked || numSelected > 0,
@@ -102,6 +116,36 @@ class EnhancedToolbar extends Component {
                             ))}
                 </div>
             </Toolbar>
+            <Dialog
+            open={this.state.openDialog}
+            onClose={this.handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">Add New User</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Email Address"
+                type="email"
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleClose} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
+          </div>
         );
     }
 }

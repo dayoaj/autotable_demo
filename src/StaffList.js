@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Checkbox } from '@mat
 import EnhancedToolbar from './EnhancedToolbar';
 
 
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -22,20 +23,20 @@ class StaffList extends Component {
 
   state = { selected: [], clicked: -1, }
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
-  isClicked = id => this.state.clicked === id;
+  isSelected = EmployeeID => this.state.selected.indexOf(EmployeeID) !== -1;
+  isClicked = EmployeeID => this.state.clicked === EmployeeID;
 
-  handleSelect = (event, id) => {
+  handleSelect = (event, EmployeeID) => {
     const { selected, clicked } = this.state;
     
-    const selectedIndex = selected.indexOf(id);
+    const selectedIndex = selected.indexOf(EmployeeID);
 
     let newSelected = [];
     if (!selected.length && clicked !== -1){
-      newSelected = newSelected.concat(selected, id, clicked);
+      newSelected = newSelected.concat(selected, EmployeeID, clicked);
       this.setState({ clicked: -1 });
     }else if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, EmployeeID);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -54,21 +55,21 @@ class StaffList extends Component {
 
   }
 
-  handleClick = (event, id) => {
+  handleClick = (event, EmployeeID) => {
     const { selected, clicked } = this.state;
 
     if(selected){
       this.setState({ selected: [] });
     }
 
-    let newClicked = id;
+    let newClicked = EmployeeID;
 
     if(clicked === -1){
-      newClicked = id;
-    } else if (clicked === id){
+      newClicked = EmployeeID;
+    } else if (clicked === EmployeeID){
       newClicked = -1
     } else {
-      newClicked = id;
+      newClicked = EmployeeID;
     }
 
     this.setState({clicked: newClicked});
@@ -96,25 +97,25 @@ class StaffList extends Component {
           </TableHead>
           <TableBody>
             {data.map(n => {
-              const isSelected = this.isSelected(n.id);
-              const isClicked = this.isClicked(n.id);
+              const isSelected = this.isSelected(n.EmployeeID);
+              const isClicked = this.isClicked(n.EmployeeID);
               return (
                 <TableRow
                   hover
-                  onClick={event => this.handleClick(event, n.id)}
+                  onClick={event => this.handleClick(event, n.EmployeeID)}
                   role="checkbox"
                   aria-checked={isClicked || isSelected}
                   tabIndex={-1}
-                  key={n.id}
+                  key={n.EmployeeID}
                   selected={isClicked || isSelected}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox checked={isClicked || isSelected}
-                      onClick={event => this.handleSelect(event, n.id)}
+                      onClick={event => this.handleSelect(event, n.EmployeeID)}
                     />
                   </TableCell>
                   <TableCell component="th" scope="row" padding="none">
-                    {n.FirstName}
+                    {n.FirstName} {" "}
                     {n.LastName}
                   </TableCell>
                   <TableCell numeric>{n.PhoneNumber}</TableCell>

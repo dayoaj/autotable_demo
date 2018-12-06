@@ -61,7 +61,7 @@ class App extends Component {
     const { data, error, isLoading, mobOpen} = this.state; 
     
     if(error) {
-      return <p>{error.message} from me</p>;
+      return <p>{error.message}</p>;
     }
     if (isLoading) {
       return <p>Loading...</p>;
