@@ -29,6 +29,7 @@ class App extends Component {
     data: [],
     isLoading: false,
     error: null,
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbXBsb3llZUlEIjoiODgxNGU1MDAtZjJmNS00NzYyLTk0ZmEtZDNmZjFkYmY2MTYzIiwiaWF0IjoxNTQ0MTg5ODU0LCJleHAiOjE1NDQ3OTQ2NTR9.D6jhsvGzZvjASXqD-8-e09YT8ktI0JM4tiwEqtKwsRU"
   };
 
   updateData = (data) => {
@@ -44,7 +45,13 @@ class App extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch('http://127.0.0.1:8090/api/users')
+    fetch('http://127.0.0.1:8090/api/user',{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": this.state.token,
+      },
+    })
       .then(response =>{
         if (response.ok) {
           return response.json();
@@ -58,11 +65,11 @@ class App extends Component {
     
   render() {
     const { classes } = this.props;
-    const { data, error, isLoading, mobOpen} = this.state; 
+    const { data, isLoading, mobOpen} = this.state; 
     
-    if(error) {
-      return <p>{error.message}</p>;
-    }
+    // if(error) {
+    //   return <p>{error.message}</p>;
+    // }
     if (isLoading) {
       return <p>Loading...</p>;
     }
