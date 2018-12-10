@@ -37,6 +37,7 @@ const toolbarStyles = theme => ({
     actions: {
         color: theme.palette.text.secondary,
         width: 120,
+        alignItems: 'center',
     },
     title: {
         flex: '0 0 auto',

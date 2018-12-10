@@ -93,6 +93,7 @@ class StaffList extends Component {
               <TableCell numeric>Phone Number</TableCell>
               <TableCell >Portfolio</TableCell>
               <TableCell >Department</TableCell>
+              <TableCell >Email</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -121,6 +122,7 @@ class StaffList extends Component {
                   <TableCell numeric>{n.PhoneNumber}</TableCell>
                   <TableCell>{n.Position}</TableCell>
                   <TableCell>{n.Department}</TableCell>
+                  <TableCell>{n.email}</TableCell>
                 </TableRow>
               );
             })}
