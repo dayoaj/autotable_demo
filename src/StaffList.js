@@ -32,7 +32,11 @@ class StaffList extends Component {
     const selectedIndex = selected.indexOf(EmployeeID);
 
     let newSelected = [];
-    if (!selected.length && clicked !== -1){
+
+    if(clicked === EmployeeID){
+      return;
+    }
+    if (!selected.length && clicked !== -1 ){
       newSelected = newSelected.concat(selected, EmployeeID, clicked);
       this.setState({ clicked: -1 });
     }else if (selectedIndex === -1) {
