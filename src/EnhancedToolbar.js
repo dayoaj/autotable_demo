@@ -13,7 +13,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
@@ -42,111 +41,128 @@ const toolbarStyles = theme => ({
     title: {
         flex: '0 0 auto',
     },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+    },
 });
 
 
 
 class EnhancedToolbar extends Component {
-    
+
     state = {
         openDialog: false,
     }
 
     handleClickAddNewUser = () => {
         this.setState({ openDialog: true });
-      }; 
+    };
 
     handleClose = () => {
         this.setState({ openDialog: false });
-    }; 
+    };
 
 
     render() {
         const { numSelected, classes, isClicked } = this.props;
-    //const {  openDialog } = this.state;
+        //const {  openDialog } = this.state;
 
 
         return (
             <div>
-            <Toolbar
-                className={classNames(classes.root, {
-                    [classes.highlight]: isClicked || numSelected > 0,
-                })}
-           
-            >
-                <div className={classes.title} >
-                    {isClicked ? "" : (numSelected > 0 ? (
-                        <Typography color="inherit" variant="subheading">
-                            {numSelected} selected
-                        </Typography>
-                    ) : (
-                            <Typography variant="title" id="tableTitle">
-                                Name List
-                            </Typography>
-                        ))}
-                </div>
-                <div className={classes.spacer} />
-                <div className={classes.actions} >
-                    {isClicked ? (
-                        <div>
-                            <Tooltip title="Edit">
-                                <IconButton aria-label="Edit">
-                                    <EditIcon />
-                                </IconButton>
-                            </Tooltip>
+                <Toolbar
+                    className={classNames(classes.root, {
+                        [classes.highlight]: isClicked || numSelected > 0,
+                    })}
 
-                            <Tooltip title="Delete">
-                                <IconButton aria-label="Delete">
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
-                        </div>
-                    ) :
-                        (numSelected > 0 ? (
-                            <Tooltip title="Delete">
-                                <IconButton aria-label="Delete">
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
+                >
+                    <div className={classes.title} >
+                        {isClicked ? "" : (numSelected > 0 ? (
+                            <Typography color="inherit" variant="subheading">
+                                {numSelected} selected
+                        </Typography>
                         ) : (
-                                <Tooltip title="Add New Staff">
-                                    <IconButton aria-label="Add new Staff" onClick={this.handleClickAddNewUser}>
-                                        <AddStaffIcon />
+                                <Typography variant="title" id="tableTitle">
+                                    Name List
+                            </Typography>
+                            ))}
+                    </div>
+                    <div className={classes.spacer} />
+                    <div className={classes.actions} >
+                        {isClicked ? (
+                            <div>
+                                <Tooltip title="Edit">
+                                    <IconButton aria-label="Edit">
+                                        <EditIcon />
                                     </IconButton>
                                 </Tooltip>
-                            ))}
-                </div>
-            </Toolbar>
-            <Dialog
-            open={this.state.openDialog}
-            onClose={this.handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">Add New User</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                To subscribe to this website, please enter your email address here. We will send
-                updates occasionally.
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Email Address"
-                type="email"
-                fullWidth
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Cancel
+
+                                <Tooltip title="Delete">
+                                    <IconButton aria-label="Delete">
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
+                        ) :
+                            (numSelected > 0 ? (
+                                <Tooltip title="Delete">
+                                    <IconButton aria-label="Delete">
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            ) : (
+                                    <Tooltip title="Add New Staff">
+                                        <IconButton aria-label="Add new Staff" onClick={this.handleClickAddNewUser}>
+                                            <AddStaffIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                ))}
+                    </div>
+                </Toolbar>
+                <Dialog
+                    open={this.state.openDialog}
+                    onClose={this.handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">Add New User</DialogTitle>
+                    <DialogContent>
+                        <form className={classes.container} noValidate autoComplete="off">
+                            <TextField
+                                id="email-input"
+                                label="Email"
+                                className={classes.textField}
+                                type="email"
+                                name="email"
+                                autoComplete="email"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                            <TextField
+                                id="password-input"
+                                label="Password"
+                                className={classes.textField}
+                                type="password"
+                                autoComplete="current-password"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Cancel
               </Button>
-              <Button onClick={this.handleClose} color="primary">
-                Submit
+                        <Button onClick={this.handleClose} color="primary">
+                            Submit
               </Button>
-            </DialogActions>
-          </Dialog>
-          </div>
+                    </DialogActions>
+                </Dialog>
+            </div>
         );
     }
 }
