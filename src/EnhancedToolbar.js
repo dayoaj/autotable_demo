@@ -7,13 +7,7 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddStaffIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import AddNewUser from './AddNewUser';
 
 
 const toolbarStyles = theme => ({
@@ -124,44 +118,8 @@ class EnhancedToolbar extends Component {
                                 ))}
                     </div>
                 </Toolbar>
-                <Dialog
-                    open={this.state.openDialog}
-                    onClose={this.handleClose}
-                    aria-labelledby="form-dialog-title"
-                >
-                    <DialogTitle id="form-dialog-title">Add New User</DialogTitle>
-                    <DialogContent>
-                        <form className={classes.container} noValidate autoComplete="off">
-                            <TextField
-                                id="email-input"
-                                label="Email"
-                                className={classes.textField}
-                                type="email"
-                                name="email"
-                                autoComplete="email"
-                                margin="normal"
-                                variant="outlined"
-                            />
-                            <TextField
-                                id="password-input"
-                                label="Password"
-                                className={classes.textField}
-                                type="password"
-                                autoComplete="current-password"
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </form>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Cancel
-              </Button>
-                        <Button onClick={this.handleClose} color="primary">
-                            Submit
-              </Button>
-                    </DialogActions>
-                </Dialog>
+                <AddNewUser openDialog = {this.state.openDialog} handleClose = {this.handleClose}/>
+                                
             </div>
         );
     }
